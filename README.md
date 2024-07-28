@@ -1,12 +1,34 @@
-# Serverless-Data-Processing-using-S3-and-Lambda
+# Image Resizer Lambda
 
-# policy
-set/create policy as given in policy.json proving read(GetObject) access from where it takes image, and write(PutObject) access where it store image
-# Lambda function
-then attach that role to lambda
-# Zip the code 
-then run the code to make a zip and upload that zip in lambda function
-# Setting .env
-set env in configuration (for destination bucket)
-# Adding trigger
-add a trigger so whenever image upload to s3, lambda get triggered automatically 
+This Lambda will be invoked when a file is uploaded to a particular bucket. It will fetch the file that was added, resize it, and store the output in a different bucket.
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/OneLightWebDev/image-resizer-lambda.git
+```
+
+Install Dependencies
+
+```bash
+# Required options if on mac
+npm install --arch=x64 --platform=linux --target=16x sharp
+```
+
+## Environment Variables
+
+Remember set the `DEST_BUCKET` in your Lambda's "Configuration" tab. To do this, open your Lambda in the AWS Console, select the "Configuration" tab, then click "Environment variables"
+
+```bash
+DEST_BUCKET=thumbnails-bucket-name
+```
+
+## Deployment
+
+```bash
+npm run package
+```
+
+Running the command above will zip your source code and dependencies. The zip can then be uploaded to your Lambda.
